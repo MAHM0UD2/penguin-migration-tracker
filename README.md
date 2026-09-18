@@ -24,7 +24,6 @@ The analysis compares a single relay against two satellite constellations (incli
 
 ## Project Structure
 
-- `report.txt`: Detailed technical report containing orbit checks, assumptions, and access analysis.
 - `orekit-data/`: Contains frequently updated physical datasets required for Orekit calculations (maintained independently of application code).
 - `python/`: Source code for the orbital simulations and data analysis.
 - `cesium/` & `gmat/`: Related visualization tools and mission analysis data.
