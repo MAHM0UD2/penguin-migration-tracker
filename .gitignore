@@ -62,6 +62,8 @@ out/*
 !out/constellation-metrics.csv
 !out/orbit_1.csv
 !out/orbit_2.csv
+!out/position-difference.jpg
+!out/position-difference-TBVSJ2.jpg
 bin/
 coverage/
 .factorypath

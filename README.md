@@ -32,5 +32,5 @@ The analysis compares a single relay against two satellite constellations (incli
 
 ## Analysis Plots
 
-![Position Difference](out/position-difference.pdf)
-![Position Difference - TwoBody vs. J2](out/position-difference-task13.pdf)
+![Position Difference](out/position-difference.jpg)
+![Position Difference - TwoBody vs. J2](out/position-difference-TBVSJ2.jpg)
