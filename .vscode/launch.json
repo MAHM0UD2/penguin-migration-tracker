@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ConstellationAnalysis",
+            "request": "launch",
+            "mainClass": "edu.saarland.spain.p2.ConstellationAnalysis",
+            "projectName": "p2-orekit",
+            "env": {
+                "OREKIT_DATA": "${workspaceFolder}/orekit-data"
+            }
+        },
+        {
+            "type": "java",
+            "name": "NumericalManeuver",
+            "request": "launch",
+            "mainClass": "edu.saarland.spain.p2.NumericalManeuver",
+            "projectName": "p2-orekit",
+            "env": {
+                "OREKIT_DATA": "${workspaceFolder}/orekit-data"
+            }
+        },
+        {
+            "type": "java",
+            "name": "Run Penguin Simulator",
+            "request": "launch",
+            "mainClass": "edu.saarland.spain.p2.Simulator",
+            "env": {
+                "OREKIT_DATA": "${workspaceFolder}/orekit-data"
+            }
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>P2 Penguin Tracking</title>
+  </head>
+  <body>
+    <div id="cesiumContainer"></div>
+    <aside class="mission-panel" aria-label="Mission data">
+      <header>
+        <span>Space Informatics P2</span>
+        <h1>Penguin Tracking Mission</h1>
+        <p id="status">Starting viewer...</p>
+      </header>
+      <ul id="metrics" class="metrics"></ul>
+      <label class="sample-control" for="sampleSelect">
+        <span>Migration sample</span>
+        <select id="sampleSelect"></select>
+      </label>
+      <section>
+        <h2>Upcoming Windows</h2>
+        <ol id="passList" class="pass-list"></ol>
+      </section>
+    </aside>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

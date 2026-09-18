@@ -1,0 +1,4 @@
+dist/
+public/cesium/
+public/data/*.czml
+public/data/*.json

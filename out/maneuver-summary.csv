@@ -1,0 +1,2 @@
+maneuver_utc,delta_v_m_s,old_next_access_utc,numerical_next_access_utc,shift_s,old_opening_still_visible
+2027-04-01T12:00:00.000Z,2.0,2027-04-01T12:21:10.000Z,2027-04-01T12:20:05.000Z,-65.000,true

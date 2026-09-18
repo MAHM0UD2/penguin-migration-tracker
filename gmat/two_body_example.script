@@ -1,0 +1,121 @@
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Satellite;
+Satellite.DateFormat = UTCGregorian;
+Satellite.Epoch = '01 Apr 2027 00:00:00.000';
+Satellite.CoordinateSystem = EarthMJ2000Eq;
+Satellite.DisplayStateType = Keplerian;
+Satellite.SMA = 6928.137000000002;
+Satellite.ECC = 4.952134022057936e-16;
+Satellite.INC = 53;
+Satellite.RAAN = 19.99999999999999;
+Satellite.AOP = 0;
+Satellite.TA = 1.207418269725733e-06;
+Satellite.DryMass = 850;
+Satellite.Cd = 2.2;
+Satellite.Cr = 1.8;
+Satellite.DragArea = 15;
+Satellite.SRPArea = 1;
+Satellite.SPADDragScaleFactor = 1;
+Satellite.SPADSRPScaleFactor = 1;
+Satellite.AtmosDensityScaleFactor = 1;
+Satellite.ExtendedMassPropertiesModel = 'None';
+Satellite.NAIFId = -10011001;
+Satellite.NAIFIdReferenceFrame = -9011001;
+Satellite.OrbitColor = Red;
+Satellite.TargetColor = Teal;
+Satellite.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+Satellite.CdSigma = 1e+70;
+Satellite.CrSigma = 1e+70;
+Satellite.Id = 'SatId';
+Satellite.Attitude = CoordinateSystemFixed;
+Satellite.SPADSRPInterpolationMethod = Bilinear;
+Satellite.SPADSRPScaleFactorSigma = 1e+70;
+Satellite.SPADDragInterpolationMethod = Bilinear;
+Satellite.SPADDragScaleFactorSigma = 1e+70;
+Satellite.AtmosDensityScaleFactorSigma = 1e+70;
+Satellite.ModelFile = 'aura.3ds';
+Satellite.ModelOffsetX = 0;
+Satellite.ModelOffsetY = 0;
+Satellite.ModelOffsetZ = 0;
+Satellite.ModelRotationX = 0;
+Satellite.ModelRotationY = 0;
+Satellite.ModelRotationZ = 0;
+Satellite.ModelScale = 1;
+Satellite.AttitudeDisplayStateType = 'Quaternion';
+Satellite.AttitudeRateDisplayStateType = 'AngularVelocity';
+Satellite.AttitudeCoordinateSystem = EarthMJ2000Eq;
+Satellite.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel TwoBodyEarth;
+TwoBodyEarth.CentralBody = Earth;
+TwoBodyEarth.PrimaryBodies = {Earth};
+TwoBodyEarth.Drag = None;
+TwoBodyEarth.SRP = Off;
+TwoBodyEarth.RelativisticCorrection = Off;
+TwoBodyEarth.ErrorControl = RSSStep;
+TwoBodyEarth.GravityField.Earth.Degree = 4;
+TwoBodyEarth.GravityField.Earth.Order = 4;
+TwoBodyEarth.GravityField.Earth.StmLimit = 100;
+TwoBodyEarth.GravityField.Earth.PotentialFile = '<GMAT DIR>\bin\..\data\gravity\earth\JGM2.cof';
+TwoBodyEarth.GravityField.Earth.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator TwoBody;
+TwoBody.FM = TwoBodyEarth;
+TwoBody.Type = RungeKutta89;
+TwoBody.InitialStepSize = 60;
+TwoBody.Accuracy = 9.999999999999999e-12;
+TwoBody.MinStep = 0.001;
+TwoBody.MaxStep = 2700;
+TwoBody.MaxStepAttempts = 50;
+TwoBody.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create ReportFile SatelliteState;
+SatelliteState.SolverIterations = Current;
+SatelliteState.UpperLeft = [ 0.02454780361757106 0.04231625835189309 ];
+SatelliteState.Size = [ 0.599483204134367 0.7984409799554566 ];
+SatelliteState.RelativeZOrder = 4;
+SatelliteState.Maximized = true;
+SatelliteState.Filename = '<REPORT DIR>\report.txt';
+SatelliteState.Precision = 16;
+SatelliteState.WriteHeaders = true;
+SatelliteState.LeftJustify = On;
+SatelliteState.ZeroFill = Off;
+SatelliteState.FixedWidth = true;
+SatelliteState.Delimiter = ' ';
+SatelliteState.ColumnWidth = 23;
+SatelliteState.WriteReport = true;
+SatelliteState.AppendToExistingFile = false;
+
+%----------------------------------------
+%---------- Arrays, Variables, Strings
+%----------------------------------------
+Create Variable StopSeconds;
+Create Variable StepSeconds;
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+StopSeconds = 0;
+StepSeconds = 60;
+While StopSeconds < 86400
+   Propagate TwoBody(Satellite) {Satellite.ElapsedSecs = StepSeconds};
+   Report SatelliteState Satellite.UTCGregorian Satellite.EarthMJ2000Eq.X Satellite.EarthMJ2000Eq.Y Satellite.EarthMJ2000Eq.Z Satellite.Altitude;
+	StopSeconds = StopSeconds + 60;
+EndWhile;
